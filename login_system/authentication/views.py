@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -24,7 +24,7 @@ def signup(request):
         myuser.last_name = lastname
         myuser.save()
 
-        messages.success(request, 'Your Account has been successfully created.')
+        messages.success(request, 'Your Account has been successfully created')
 
         return redirect('signin')
     return render(request, "authentication/signup.html")
@@ -47,4 +47,6 @@ def signin(request):
     return render(request, "authentication/signin.html")
 
 def signout(request):
-    pass
+    logout(request)
+    messages.success(request, "Logged Out Successfully")
+    return redirect('home')
